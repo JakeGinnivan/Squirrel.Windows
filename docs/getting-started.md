@@ -22,6 +22,8 @@ using (var mgr = new UpdateManager("https://path/to/my/update/folder"))
 
 You should have a folder called `Releases` with three files in it. Publish those all to S3 in the same folder and you've now got an installer.
 
+The default behavior of Squirrel is to create a shortcut and an uninstaller entry for your application based of the information in the NuSpec.
+
 
 ## BETA: Some hacky notes that will go away soon
 
