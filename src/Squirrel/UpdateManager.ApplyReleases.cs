@@ -539,10 +539,12 @@ namespace Squirrel
                 new[] { RegistryView.Registry32, RegistryView.Registry64 }.ForEach(view => {
                     var baseKey = default(RegistryKey);
                     var regKey = default(RegistryKey);
+		            var layersKey = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers";
 
                     try {
                         baseKey = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, view);
-                        regKey = baseKey.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers");
+            			regKey = baseKey.OpenSubKey(layersKey) ??
+            					 baseKey.CreateSubKey(layersKey);
 
                         var toDelete = regKey.GetValueNames()
                             .Where(x => x.StartsWith(rootAppDirectory, StringComparison.OrdinalIgnoreCase))
